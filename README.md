@@ -65,6 +65,12 @@ Using Spotlight (the little magnifying glass icon in the bar at the upper-right-
 
 While `Terminal` comes with all Mac computers, many prefer to use a terminal emulator program that offers more features and customization, such as [iTerm2](https://iterm2.com/).
 
+### There's another layer
+
+The program that is actually running in the terminal emulator to interpret the commands you enter is called a "shell".
+
+The one we'll be using is Z shell (Zsh), which is the default on recent Mac computers. Another popular shell is Bourne Again SHell (Bash). Each shell has some syntactic differences, particularly when you're writing scripts that tie multiple commands together. However, when running most commands and using core functionality like redirecting input and output, the differences are negligible.
+
 ## The command-line is case (and space) sensitive
 
 You need to escape spaces be either using quotation marks or a backslash (`\`).
@@ -91,23 +97,117 @@ On the command-line, single and double quotes have somewhat different behaviors,
 
 ## Starting over: Use `ctrl+c`
 
+If you want to abandon a command you've started typing and get a new command prompt, you can hold down the `ctrl` and `c` keys at the same time (this is written as `ctrl+c`) and you will be given a new command prompt.
+
+Similarly, if you run a command and it gets into an unexpected state, or is running longer than you expect, you can use `ctrl-c` to exit the program and return you to a new prompt.
+
 ## Navigating the file system
 
-## Anatomy of a command
+### `pwd` tells you where you are
+
+### `cd` changes directory
+
+### Some shortcuts
+
+- `.`: The current directory
+- `..`: The parent directory
+- `~`: The home directory
+- `tab`: Completes matching stuff
+
+### `ls` lists directory contents and file details
+
+### Anatomy of a command
+
+Most commands follow this format.
+
+`command [options] [positional_arguments ...]`
+
+Example: `ls -al ~`
+
+- `ls`: command
+- `-al`: options
+- `~`: positional argument
+
+To find out all options, you can often, but not always, use the `-h` option for a command. For a more verbose set of instructions, you can view the command's manual page, with the `man` command.
+
+For example, `man ls` will show you the manual page for the `ls` command.
+
+To scroll, you can use space to page down, arrow keys to go up/down line-by-line, and `q` to quit.
+
+### Filename generation
+
+- `*`: Matches any string
+- `?`: Matches any single character
+- `(x|y)`: Matches `x` or `y`
+- `<[x]-[y]>`: Matches any number in the range x to y, inclusive.
+
+There's a lot more. See the [Expansion](https://zsh.sourceforge.io/Doc/Release/Expansion.html#Filename-Expansion) section of the zsh manual.
 
 ## Editing and reusing commands
 
+### Arrow keys let you step through previous comands one-by-one
+
+### `history` shows you a big chunk of history
+
+### `ctrl+r` lets you search your history
+
+### Navigating the current command
+
+- `ctrl-a`: Move cursor to the beginning of the line
+- `ctrl-e`: Move cursor to the end of the line
+- `esc-f`: Move cursor forward one word
+- `esc-b`: Move cursor back one word
+
+Again, there's a lot more.
+
+## Viewing and previewing files
+
+`cat` will show the contents of a text file. `cat` is short for concatenate, and can be used to combine text files, but when only one file is given as an argument, it just shows the contents.
+
+`head` will show you the beginning of a file.
+
+`tail` will show you the end of a file.
+
+`less` will show you the contents of a text file one "page" at a time.
+
+Within `less`, pressing the space bar will go to the next "page" of text. Pressing `b` will show you the previous.
+
+Typing `/` followed by a pattern, will take you to the first instance matching the pattern in the forward direction. Then, `n` will repeat that search. `N` will repeat that search in the backward direction. 
+
+## Searching files
+
+### `grep` searches contexts of text files
+
+### `find` searches file names/metadata
+
 ## Redirecting input and output
 
+The output of a program is sent to standard output (often abbreviated as stdout). The default input of a program is called standard input.
+
+'>' redirects the output of a command to a file.
+
+'>>' appends the output of a command to a file.
+
+'<' cause the contents of a file to be read as a command's input.
+
+'|' between commands redirects the output of one command into the input of the next. This feature is what enables the "Unix philosophy" of writing small, single-purpose programs.
+
 ## Running commands on many inputs
+
+The `find` command has an `-exec` option that will run a command on all files matched by `find`.
+
+The `xargs` command takes a list of items on standard input and runs a command on them. 
 
 ## Next steps
 
 - Environment variables
 - Shell expansion
+- Customizing your environment
+  - Customizing your prompt
+  - Aliases
 - Suspending and killing processes and running longrunning processes in parallel
-- Using the command-line on other systems
 - Installing command-line software
+- Using the command-line on remote systems
 
 ## Resources
 
@@ -118,3 +218,4 @@ On the command-line, single and double quotes have somewhat different behaviors,
 - [useful tools for the command line](https://docs.google.com/presentation/d/1TwQdzwfjrAaNxbVlkRa_2zn6UPOFFOkOcFOTb0mASTw/edit#slide=id.ga856f3037_028)
 - [KarrieK/NICAR16](https://github.com/KarrieK/NICAR16): Tip sheet and tutorial for a similar session at the 2016 NICAR conference. This one is more focused on csvkit.
 - [Command line crash course - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+- [Input/Output Redirection in the Shell](https://thoughtbot.com/blog/input-output-redirection-in-the-shell)
