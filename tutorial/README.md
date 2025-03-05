@@ -52,7 +52,7 @@ echo "hello
 
 We're in a weird state that kind of looks like the command prompt, but is a bit different. What do we do?
 
-We can hold down the `control` key and the `c` key togetjer, often written as `<ctrl>+c` or `^c` to kill the current program and give us a new command prompt.
+We can hold down the `control` key and the `c` key together, often written as `<ctrl>+c` or `^c` to kill the current program and give us a new command prompt.
 
 We can also use `<ctrl>+c` to abandon a command we've started typing and get a new prompt.
 
@@ -80,9 +80,9 @@ We'll also learn about these concepts:
 
 - *Absolute* and *relative* *paths*
 - *Arguments* to *commands*
-- The meaning of the special paths `.` and `..`.
+- The meaning of the special paths `~`, `.` and `..`.
 - *Command* *options*
-- Using filename generation and the `wildcard` symbol.
+- Using filename generation and the `*` symbol.
 - *Tab completion*
 
 ### Try it together
@@ -93,15 +93,17 @@ Check what directory you're in by running:
 pwd
 ```
 
-Change directory to the project root directory. At NICAR 2025, on the lab computers, this will be `TK`. On my computer, this is `/Users/ghing/workspace/nicar-2025-command-line`.
+Change directory to the project root directory. At NICAR 2025, on the lab computers, this will be `~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs`. On my computer, the project root is instead located at `/Users/ghing/workspace/nicar-2025-command-line`.
 
 ```
-cd TK
+cd ~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs
 ```
 
-In this case `cd` is the *command* and `TK` is the *argument*.
+In this case `cd` is the *command* and `~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs` is the *argument*.
 
-The path begins with a `/` character, so it's an *absolute path*.
+`~` is a special path on Unix systems. It resolves to the logged-in user's *home directory*, which is the parent folder for configuration files as well as files they create. On a Mac system, user home directories live under `/Users`.
+
+`/Users` begins with a `/` character, so it's an *absolute path*.
 
 Are we in the right directory? Check by running `ls` to list its contents:
 
