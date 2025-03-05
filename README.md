@@ -218,6 +218,8 @@ The `xargs` command takes a list of items on standard input and runs a command o
 
 ## Next steps
 
+- How the shell finds programs and decides which one to run, i.e. the *system path*.
+- File permissions
 - Environment variables
 - Shell expansion
 - Customizing your environment
@@ -235,7 +237,6 @@ The `xargs` command takes a list of items on standard input and runs a command o
 - [AJVicens/command-line-for-reporters](https://github.com/AJVicens/command-line-for-reporters): Tip sheet from this session at a past NICAR conference. 
 - [armendariz/terminal_recipes](https://github.com/armendariz/terminal_recipes): Tip sheet for a similar session from the 2015 NICAR conference.
 - [chrislkeller/nicar15-command-line-basics](https://github.com/chrislkeller/nicar15-command-line-basics): Tip sheet from a different version of the 2015 NICAR conference.
-- [TK]()
 - [useful tools for the command line](https://docs.google.com/presentation/d/1TwQdzwfjrAaNxbVlkRa_2zn6UPOFFOkOcFOTb0mASTw/edit#slide=id.ga856f3037_028)
 - [KarrieK/NICAR16](https://github.com/KarrieK/NICAR16): Tip sheet and tutorial for a similar session at the 2016 NICAR conference. This one is more focused on csvkit.
 - [Command line crash course - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)

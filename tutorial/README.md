@@ -469,3 +469,109 @@ grep -ilr 'tucson' data
 ### Try it yourself
 
 Use a different pattern to search the FOIA log CSV files for something of interest to you. What did you find?
+
+## Redirecting input and output
+
+### What we're learning
+
+We're going to use these commands to experiment with redirecting the output of one program to another, or to a file:
+
+- `in2csv` converts many data file formats to CSV.
+- `csvgrep` works like `grep`, but in a way that is aware of data's structure.
+- `csvformat` reformats delimited text files, e.g. converting CSV to TSV.
+- `pbcopy` copies its input to the system clibboard.
+
+We're going to learn about these concepts:
+
+- *Standard output* is the place where commands send their output.
+- Using the `|` (pipe) operator to redirect the output of one program into the input of another.
+- Using the `>` operator to redirect the output of a program to a file.
+- Using the `-h` or `--help` option to get command help.
+
+### Try it together
+
+Many FOIA requesters to ICE are lawyers, not journalists. Let's try too see all the rows of the FOIA log CSVs that might be from lawyers:
+
+```
+grep -i 'law' data/ice-foia-logs/*.csv
+```
+
+There are a lot of matches, and they scroll by really fast. 
+
+That's because `grep` is sending the results of the command to *standard output*, which we see in the terminal.
+
+How can we look at the output in a more leisurely way? 
+
+Let's send the output of the `grep` command to the pager program `less` that we used before instead of to *standard output*:
+
+```
+grep -i 'law' data/ice-foia-logs/*.csv | less
+```
+
+Now we can page through the output of `grep` using the keystrokes we learned before. Remember, type `q` to quite out of `less`.
+
+So much of data journalism is just counting things. We can use a few things we've learned so far to get really quick signals about data, without needing something like a pivot table. Let's see how often "tucson" is mentioned in the FOIA logs by combining `grep` and `wc`:
+
+```
+grep -i 'tucson' data/ice-foia-logs/*.csv | wc -l
+```
+
+From this, we can see that Tucson is mentioned two times.
+
+We can also redirect the output of a command to a file. 
+
+I often use the `in2csv` command, which is part of the [csvkit](https://github.com/wireservice/csvkit) package, a set of programs for working with CSV files and other tabular data data in text format, to convert from Excel to CSV.
+
+Let's try doing this with one of the Excel FOIA logs that hasn't already been converted to CSV:
+
+```
+in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx 
+```
+
+That command outputs the CSV to *standard output*, but we might want to have the data in CSV format for later. We can redirect the output to a file using the `>` operator.
+
+```
+in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx > data/ice-foia-logs/FY2024_FOIA_AppealsLog.csv
+```
+
+So far, we've worked a bit with CSV files and searching them with `grep`, but `grep` doesn't have any concept of the columns of the data. That is, we can't limit our search to certain columns. Luckily, csvkit also includes a program called `csvgrep` that works like `grep` but thinks in terms of the data's structure.
+
+Let's modify a `grep` command we used earlier to search for Tucson only in the `Request Description` column:
+
+```
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv
+```
+
+Note that `csvgrep` only works on a single file at a time and also includes the header row in the output. The search is also case-sensitive, though there is a [way to specify case insensitve patterns](https://github.com/wireservice/csvkit/issues/248#issuecomment-32101897).
+
+How do we learn about the options of `csvgrep` when `man csvgrep` doesn't seem to work. In addition to *manual pages*, many commands have a help option which, when specified, will show help text. Conventionally, this option is `-h` or `--help`:
+
+```
+csvgrep -h
+```
+
+You may see from this output that many options have both a short version that is one character preceded by a `-` and long version, which is preceded by `--`. For example, `-c` and `--columns` do the same thing, they specify the columns to search. The short version is faster to type, while the long version gives the reader of a script or data diary a better idea of what the command is doing if they're not familiar with a particular program. 
+
+One thing I do all the time is share slices of data with others. Let's start by *piping* the output of `csvgrep` to `csvformat` to convert it to a tab-separated format:
+
+```
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T
+```
+
+Note that I used the short version of the option that outputs tabs instead of commas, `-T`, but I could have also used `--out-tabs`.
+
+What if I wanted to bring this into a spreadsheet program like Excel or Google Sheets?
+
+I can redirect the output to a program called `pbcopy` that copies the text to the system clipboard that can then be pasted into the spreadsheet.
+
+```
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T | pbcopy
+```
+
+Note that this pipeline has three steps whereas before we only had two. We can connect the inputs and outputs of programs using `|` in pipelines that could be many steps. But each step might be a very simple command. This helps experimenting and testing with each part of the pipeline.
+
+### Try it yourself
+
+Use `csvgrep` to find requests that match "Law" in the `Requester::Organization Name` column of `data/ice-foia-logs/2024-10_FOIA_Log.csv` and use `csvcut` to display only that column. Save this to a file named `data/ice-foia-logs/2024_lawyer_requests.csv`.
+
+Bonus points: Use `uniq` and `csvsort` to get only unique lawyer/law firm names. Then count the number of unique names.
