@@ -212,7 +212,7 @@ The `xargs` command takes a list of items on standard input and runs a command o
   - Customizing your prompt
   - Aliases
 - Suspending and killing processes and running longrunning processes in parallel
-- Exit codes
+- Exit codes, using them to run commands conditionally with `&&` and `||`
 - Installing command-line software
 - Using the command-line on remote systems
 - Regular expressions

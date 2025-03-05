@@ -217,7 +217,7 @@ There's another way to save typing when using the command line. It's called tab 
 Type
 
 ```
-ls t<tab>/d<tab>/c<tab>
+ls tu<tab>/d<tab>/c<tab>
 ```
 
 This should result in this command showing up in your shell:
@@ -229,7 +229,7 @@ ls tutorial/data/census-bureau-popest
 What happens when there are multiple paths that match what you've typed so far? For example:
 
 ```
-ls tutorial/data/census-bureau-popest/2<tab>
+ls tutorial/data/census-bureau-popest/20<tab>
 ```
 
 ### Try it yourself 
