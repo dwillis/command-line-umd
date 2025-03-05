@@ -719,3 +719,139 @@ less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 ```
 
 Then, type the `/` character to search and type `2/1` and `<return>`.
+
+---
+
+## Searching for files and their contents
+
+### What we're learning
+
+Commands:
+
+- `find`
+- `grep`
+- `man`
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Make sure you're in the `tutorial` subdirectory.
+
+Remember, you can use `pwd` to check.
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Use `find` to find files matching a pattern:
+
+```bash
+find data -name '*foia*'
+```
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Use the `-iname` option to make the search case-insensitive:
+
+```bash
+find data -iname '*foia*'
+```
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Use `man` to learn about all the options that are available for a command:
+
+```
+man find
+```
+
+You can use the same keystrokes to navigate as with `less`, including `q` to quit.
+
+---
+
+## Searching for files and their contents
+
+### Try it yourself
+
+How would you find only FOIA logs for 2024 that are in the CSV file format?
+
+---
+
+## Searching for files and their contents
+
+### Try it yourself
+
+```bash
+find data -iname '*2024*.csv'
+```
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Use `grep` to search the contents of files:
+
+```bash
+grep -i 'tucson' data/ice-foia-logs/*.csv
+```
+
+This shows the matching filename and line content.
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+To only show the matching files, use the `-l` option:
+
+```bash
+grep -il 'tucson' data/ice-foia-logs/*.csv
+```
+
+---
+
+## Searching for files and their contents
+
+### Try it together
+
+Use the `-r` option to recursively search a directory:
+
+```bash
+grep -ilr 'tucson' data
+```
+
+---
+
+## Searching for files and their contents
+
+### Try it yourself
+
+Use a different pattern to search the FOIA log CSV files for something of interest to you. What did you find?
+
+---
+
+## Searching for files and their contents
+
+### Try it yourself
+
+I used `grep` to see if there were any FOIA requests about the 287(g) program:
+
+```
+grep -Ei '287\(?g\)?' data/ice-foia-logs/*.csv
+```
