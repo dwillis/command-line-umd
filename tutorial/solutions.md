@@ -72,3 +72,35 @@ less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 ```
 
 Then, type the `/` character to search and type `2/1` and `<return>` to jump to the first record where the `EventDate` is "2/1/2025". The `EventType` value is "Moving Violation".
+
+## Searching for files and their contents
+
+### Try it yourself
+
+How would you find only FOIA logs for 2024 that are in the CSV file format?
+
+We can update our `find` command with a different matching pattern:
+
+```
+find data -iname '*2024*.csv'
+```
+
+This should show these CSV FOIA log files:
+
+```
+data/ice-foia-logs/2024-10_FOIA_Log.csv
+data/ice-foia-logs/2024-08_FOIA_Log.csv
+data/ice-foia-logs/2024-09_FOIA_Log.csv
+```
+
+### Try it yourself
+
+Use a different pattern to search the FOIA log CSV files for something of interest to you. What did you find?
+
+I used `grep` to see if there were any FOIA requests about the 287(g) program:
+
+```
+grep -Ei '287\(?g\)?' data/ice-foia-logs/*.csv
+```
+
+This command is a little more complex than the examples we did together because I wanted to match both "287(g)" and "287g". I needed to specify the `-E` option to enable extended *regular expressions*. I had to make sure to quote my pattern because I'm using special characters. I had to escape the parenthesis because I want to match a literal parenthesis rather than have them interpreted as part of the regular expression language. Finally, I used the `?` to match the parenthesis zero or one times. This is similar to `*`, which we already know about, which matches any character zero or more times.

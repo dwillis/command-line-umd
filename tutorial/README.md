@@ -1,8 +1,69 @@
 # Introduction to the command line tutorial
 
-If you get stuck during the try it yourself portions, take a look at `solutions.md`.
+## Accessing the command-line on a Mac
 
-There's some information about the commands we'll be using 
+## What we're learning
+
+We'll learn about this concept:
+
+- How to access the command line with software that is pre-installed on Mac computers.
+
+## Try it together
+
+We'll access the command-line through a program that is pre-installed on all Mac computers called `Terminal`. This is an example of a software called a terminal emulator, so called because it mimics early interfaces to systems that only had a monitor showing a command-line interface and a keyboard.
+
+Using Finder (the program that you use to browse files and folders on a Mac):
+
+- Open Finder.
+- Click on the `Applications` item in the sidebar.
+- Double click on the icon for the `Utilities` folder.
+- Double click on the icon for `Terminal`.
+
+Using Spotlight (the little magnifying glass icon in the bar at the upper-right-hand corner of your screen):
+
+- Open Spotlight search by clicking on the magnifying glass icon, or holding down the `Cmd+Space` keys on your keyboard.
+- Start typing `terminal` in the text input that appears.
+- When you see an entry for `Terminal` appear in the search results, click on that entry, or press the `Return` key.
+
+## Getting unstuck
+
+### What we're learning
+
+We'll learn about these concepts:
+
+- Using `<ctrl>+c` to exit a command and get a new command prompt
+- Quotes in commands
+
+### Try it together
+
+Let's run a simple command that just outputs the string you specify. Type this command at the command prompt and press the `return` key to run it. In the future, assume that you should just press `return` after each command unless explicitly told not to.
+
+```
+echo "hello command line"
+```
+
+That's not very exciting, but it reminds us that on the command line, spaces separate *arguments* and *options* (we'll talk more about that later), so if you need to include spaces in a command's *arguments*, including ones that are file names, you need to *escape* them or wrap them in quotes. And you need to make sure to close the quotes!
+
+What happens if we forget to close the quotes. Run this command:
+
+```
+echo "hello
+```
+
+We're in a weird state that kind of looks like the command prompt, but is a bit different. What do we do?
+
+We can hold down the `control` key and the `c` key togetjer, often written as `<ctrl>+c` or `^c` to kill the current program and give us a new command prompt.
+
+We can also use `<ctrl>+c` to abandon a command we've started typing and get a new prompt.
+
+Start typing a command, but don't press the `return` key on your keyboard.
+
+```
+echo
+```
+
+Use `<ctrl>+c` to abandon this command and get a new prompt.
+
 
 ## Navigating the filesystem
 
@@ -10,14 +71,16 @@ There's some information about the commands we'll be using
 
 We're going to use these commands to move across the filesystem or learn where we are:
 
-- `cd`: Change directory to a different directory on your filesystem.
-- `pwd`: Print the current working directory.
-- `ls`: List files in the current working directory or a specified path.
+- `cd` changes directory to a different directory on your filesystem.
+- `pwd` prints the current working directory.
+- `ls` list files in the current working directory or a specified path.
+- `open` opens a file or directory in the default program for that file type on your Mac.
 
 We'll also learn about these concepts:
 
 - *Absolute* and *relative* *paths*
 - *Arguments* to *commands*
+- The meaning of the special paths `.` and `..`.
 - *Command* *options*
 - Using filename generation and the `wildcard` symbol.
 - *Tab completion*
@@ -48,6 +111,7 @@ ls
 
 You should see the files `README.md` and the directory `tutorial`.
 
+
 Let's change into the tutorial directory:
 
 ```
@@ -56,6 +120,8 @@ cd tutorial
 
 Note that `tutorial` doesn't begin with a `/`, it's a *relative path*, that is, relative to the directory we were in when we ran the command, i.e. the *working directory*.
 
+On many systems, you'll likely see the *command prompt*, the text at the beginning of each line where you enter commands change to reflect your current directory. This is fully customizable, and something that people who use the shell a lot spend a lot of time tweaking.
+
 We can see the contents of this directory, again using:
 
 ```
@@ -63,6 +129,16 @@ ls
 ```
 
 You should see a `README.md` file and a `data` directory.
+
+While we're here let's open the current folder in finder, so you can open some of the helper files in a text editor if you want to jump ahead, look back or get help. We'll use the `open` command:
+
+```
+open .
+```
+
+This should open a Mac Finder window for the current directory. You might want to double click on the files `README.md` to open this file in a text editor, as well as `solutions.md`.
+
+The `.` is a special file path that means "the current working directory."
 
 Let's change back to the directory where we were before, or the *parent* of the current working directory.
 
@@ -311,3 +387,85 @@ wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 ### Try it yourself
 
 What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+
+## Searching for files and their contents
+
+### What we're learning
+
+We're going to use these commands to search for files that are named with certain patterns and try to find lines that match patterns within the files.
+
+- `find` identifies files under a certain path matching specified patterns.
+- `grep` searches the contents of text files based on patterns.
+- `man` tells us about most command's syntax, options and usage.
+
+### Try it together
+
+Let's see if there are any data files that are FOIA logs in our data directory.
+
+Before we start, make sure we're in the `tutorial` subdirectory. Recall that we can use `pwd` to see where we are and `cd` to get to the `tutorial` directory if we're not already there.
+
+We'll use the `find` command to see if there are any files whose name contains "foia" in the data directory.
+
+Note that `find` has a syntax that is a bit different than most other programs. The positional argument, which is the path where `find` should start searching comes before the option, `-name`, which specifies the filename pattern.
+
+Also note the `*` wildcard that we learned about before. In this case, it's saying match file names with "foia" anywhere in the name. We have to put this pattern inside quotes because without it, the shell would try to expand matching filenames in the current directory, which is how we used `*` before. In this case, we're providing a pattern to the `find` command rather than having the shell interpret the pattern, so we quote the pattern.
+
+This is one of the challenges of learning the command-line. You'll see similar syntax and patterns that function somewhat differently and are used in contexts that are subtly different. We can't get into all the potential cases where this is confusing, but just be aware this is common when troubleshooting problems.
+
+```
+find data -name '*foia*'
+```
+
+This didn't return many results. Let's try making the name pattern search case-insensitive.
+
+```
+find data -iname '*foia*'
+```
+
+That's better. We get a list of all the files that have "foia", regardless of case, somewhere in their name.
+
+How did we know about the `-iname` option? You could search the web for this information, but Macs and other Unix systems have built-in manual pages for most commands. To view them, use the `man` command:
+
+```
+man find
+```
+
+We can navigate the results using the same keystrokes we learned with `less`. Recall that you can type `q` to quit.
+
+The manual pages are dense and long, but you will learn so much by skimming or reading the whole thing. If I can't wait, I will often use the `/` key to search and jump directly to the "EXAMPLES" section that's present in most commands' manual pages.
+
+### Try it yourself
+
+How would you find only FOIA logs for 2024 that are in the CSV file format?
+
+### Try it together
+
+So far, we've learned how to search for file names matching a pattern, but what if we want to search their contents?
+
+We can use the `grep` command to search for lines matching certain patterns in a text file. 
+
+Let's see if we can find out if any of the records requests in the CSV versions of the ICE FOIA logs mention "Tucson" with this `grep` command:
+
+```
+grep -i 'tucson' data/ice-foia-logs/*.csv
+```
+
+Note that the `-i` tells `grep` to do a case-insensitve search, so we'll match "Tucson" as well as "TUCSON" (or "TuCSoN"). We don't have to quote "tucson" in this example, but it's a reminder that it's a pattern and that we might need to use quotes if we include any special characters like `*` in the pattern. 
+
+From the output of grep, we can see that it shows the path of the matching file and the matching line.
+
+If we only want to see the names of the files that match, rather than one line of output per matching line, we can use
+
+```
+grep -il 'tucson' data/ice-foia-logs/*.csv
+```
+
+In the `grep` commands we've typed so far, we've provided a specific list of files for `grep` to search. We can also use the `-r` option to tell it to *recursively* search all files and all files in subdirectories under a particure path:
+
+```
+grep -ilr 'tucson' data
+```
+
+### Try it yourself
+
+Use a different pattern to search the FOIA log CSV files for something of interest to you. What did you find?

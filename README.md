@@ -188,9 +188,9 @@ Typing `/` followed by a pattern, will take you to the first instance matching t
 
 ## Searching files
 
-### `grep` searches contexts of text files
-
 ### `find` searches file names/metadata
+
+### `grep` searches contexts of text files
 
 ## Redirecting input and output
 
@@ -208,6 +208,12 @@ The output of a program is sent to standard output (often abbreviated as stdout)
 
 The `find` command has an `-exec` option that will run a command on all files matched by `find`.
 
+This is the command I used to create the CSV versions of the Excel spreadsheets of 2024 ICE FOIA logs.
+
+```
+find tutorial/data/ice-foia-logs -name '2024*' -exec sh -c 'in2csv "{}" > tutorial/data/ice-foia-logs/$(basename "{}" | sed s/xlsx/csv/)' \;
+```
+
 The `xargs` command takes a list of items on standard input and runs a command on them. 
 
 ## Next steps
@@ -221,6 +227,8 @@ The `xargs` command takes a list of items on standard input and runs a command o
 - Exit codes
 - Installing command-line software
 - Using the command-line on remote systems
+- Regular expressions
+- Processing text with `awk` and `sed`
 
 ## Resources
 
@@ -232,3 +240,7 @@ The `xargs` command takes a list of items on standard input and runs a command o
 - [KarrieK/NICAR16](https://github.com/KarrieK/NICAR16): Tip sheet and tutorial for a similar session at the 2016 NICAR conference. This one is more focused on csvkit.
 - [Command line crash course - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
 - [Input/Output Redirection in the Shell](https://thoughtbot.com/blog/input-output-redirection-in-the-shell)
+
+## Data sources
+
+TK
