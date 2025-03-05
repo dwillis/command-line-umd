@@ -143,6 +143,18 @@ To scroll, you can use space to page down, arrow keys to go up/down line-by-line
 
 There's a lot more. See the [Expansion](https://zsh.sourceforge.io/Doc/Release/Expansion.html#Filename-Expansion) section of the zsh manual.
 
+## Creating and modifying files
+
+### `mkdir` creates directories
+
+### `touch` creates empty files
+
+It also updates the timestamp of existing files.
+
+### `mv` renames files and moves them to different directories
+
+### `rm` deletes files
+
 ## Editing and reusing commands
 
 ### Arrow keys let you step through previous comands one-by-one
@@ -206,6 +218,7 @@ The `xargs` command takes a list of items on standard input and runs a command o
   - Customizing your prompt
   - Aliases
 - Suspending and killing processes and running longrunning processes in parallel
+- Exit codes
 - Installing command-line software
 - Using the command-line on remote systems
 
