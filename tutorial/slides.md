@@ -397,6 +397,18 @@ Commands:
 - `cp`
 - `rm`
 - `rmdir`
+- `history`
+
+---
+
+## Creating and modifying files
+
+### What we're learning
+
+Concepts:
+
+- Using the arrow keys to retrieve command history.
+- Using `<ctrl>+r` to search command history.
 
 ---
 
@@ -404,7 +416,7 @@ Commands:
 
 ### Try it together
 
-Make sure you're in the tutorial subdirectory.
+Make sure you're in the `tutorial` subdirectory.
 
 Remember, you can use `pwd` to check.
 
@@ -419,7 +431,6 @@ Make a directory to hold some data:
 ```bash
 mkdir data/manual
 ```
-
 
 ---
 
@@ -574,3 +585,137 @@ Typing the minimal number of characters, delete the file `data/manual/mock_data/
 Type `<ctrl>+r` and then `rm `, which causes the command `rm data/manual/mock_data/mock_data_*` to appear.
 
 Then, type `<ctrl>+r` and then `rmd`, which causes the command `rmdir data/manual/mock_data` to appear.
+
+---
+
+## Viewing and previewing files
+
+### What we're learning
+
+Commands:
+
+- `cat`
+- `head`
+- `tail`
+- `less`
+- `wc`
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+Make sure you're in the `tutorial` subdirectory.
+
+Remember, you can use `pwd` to check.
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+Look at a file contents:
+
+```bash
+cat data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+Look at only the first lines:
+
+```bash
+head data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+Specify the number of lines to see:
+
+```
+head -n 6 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+`tail` works similarly, showing the final lines of the file.
+
+```
+tail -n 5 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+`less` shows a file page by page:
+
+```
+less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+Once inside `less`:
+
+- `<space>` pages through the file in a forward direction.
+- `b` pages through the file in a backward direction.
+- `/`, followed by a pattern, will take you to the first instance of the pattern.
+- `n` will repeat the search in a forward direction.
+- `N` will repeat the search backward.
+- `q` quits the program.
+
+---
+
+## Viewing and previewing files
+
+### Try it together
+
+To get the number of rows in a file, use `wc`:
+
+```
+wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv 
+```
+
+---
+
+## Viewing and previewing files
+
+### Try it yourself
+
+What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+
+---
+
+## Viewing and previewing files
+
+### Try it yourself
+
+
+Use less to view the file:
+
+```
+less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+```
+
+Then, type the `/` character to search and type `2/1` and `<return>`.

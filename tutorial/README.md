@@ -250,6 +250,12 @@ We're going to use these commands to create and modify files and directories.
 - `cp` copies a file or directory.
 - `rm` deletes a file.
 - `rmdir` deletes an empty directory.
+- `history` shows the command history.
+
+We'll also learn about these concepts:
+
+- Using the arrow keys to retrieve command history.
+- Using `<ctrl>+r` to search command history.
 
 ### Try it together
 
