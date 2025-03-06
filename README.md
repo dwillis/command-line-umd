@@ -17,10 +17,33 @@ If you're following along on a non-lab system, you'll need to clone this reposit
 ## What's in here?
 
 - `tutorial`: Instructions and data for the hands-on activity we'll walk through during the conference session. You should also be able to follow along on your own computer.
+- `tutorial/slides.md`: Slides used during the conference session. These can be displayed using the [slides](https://github.com/maaslalani/slides) tool.
 - `tipsheet.md`: General tips and links to other references for using the command line.
 
 ## Data sources
 
 The command line is by no means a set of tools and concepts specific to journalism. I've tried to use real data in this tutorial to ground the concepts in the kinds of ways I use the command line as a data reporter.
 
-TK
+### ICE Detention Statistics 
+
+Agency: U.S. Immigration and Customs Enforcement
+
+Link: [Detention Management | ICE](https://www.ice.gov/detain/detention-management)
+
+### National Population Totals and Components of Change: 2010-2019
+
+Agency: U.S. Census Bureau
+
+Link: [National Population Totals: 2010-2019](https://www.census.gov/data/tables/time-series/demo/popest/2010s-national-total.html)
+
+### National Population Totals and Components of Change: 2020-2024
+
+Agency: U.S. Census Bureau
+
+Link: [National Population Totals: 2020-2024](https://www.census.gov/data/tables/time-series/demo/popest/2020s-national-total.html#v2023)
+
+### Tucson Police Department Police Activity Open Data for 2025
+
+Agency: Tucson Police Department
+
+Link: [Tucson Policy Activity 2025](https://gisdata.tucsonaz.gov/datasets/d0092810c2ea45ff938ae1c5b43c7b4a_0/explore)
