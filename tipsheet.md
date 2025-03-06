@@ -51,11 +51,21 @@ Using Spotlight (the little magnifying glass icon in the bar at the upper-right-
 
 While `Terminal` comes with all Mac computers, many prefer to use a terminal emulator program that offers more features and customization, such as [iTerm2](https://iterm2.com/).
 
+Many editors, such as Visual Studio Code, provide some kind of integrated terminal program.
+
 ### There's another layer
 
 The program that is actually running in the terminal emulator to interpret the commands you enter is called a "shell".
 
 The one we'll be using is Z shell (Zsh), which is the default on recent Mac computers. Another popular shell is Bourne Again SHell (Bash). Each shell has some syntactic differences, particularly when you're writing scripts that tie multiple commands together. However, when running most commands and using core functionality like redirecting input and output, the differences are negligible.
+
+If you're not sure what shell you're using, you can run:
+
+```
+echo $SHELL
+```
+
+and it will output the *absolute path* of the shell program being used. When I run this command on my system, it shows `/bin/zsh`, which is the Z shell.
 
 ## The command-line is case (and space) sensitive
 
@@ -81,26 +91,13 @@ ls "My Data"
 
 On the command-line, single and double quotes have somewhat different behaviors, but for the purpose of handling spaces, you can use either. Just make sure they match.
 
+Spacing is important with command options too. `uniq -c` is different than `uniq - c`. If you're getting strange errors, make sure that you're tying the command correctly and don't have spaces between the hyphen and letter in options.
+
 ## Starting over: Use `ctrl+c`
 
 If you want to abandon a command you've started typing and get a new command prompt, you can hold down the `ctrl` and `c` keys at the same time (this is written as `ctrl+c`) and you will be given a new command prompt.
 
 Similarly, if you run a command and it gets into an unexpected state, or is running longer than you expect, you can use `ctrl-c` to exit the program and return you to a new prompt.
-
-## Navigating the file system
-
-### `pwd` tells you where you are
-
-### `cd` changes directory
-
-### Some shortcuts
-
-- `.`: The current directory
-- `..`: The parent directory
-- `~`: The home directory
-- `tab`: Completes matching stuff
-
-### `ls` lists directory contents and file details
 
 ### Anatomy of a command
 
@@ -110,17 +107,143 @@ Most commands follow this format.
 
 Example: `ls -al ~`
 
-- `ls`: command
+- `ls`: program 
 - `-al`: options
 - `~`: positional argument
 
-To find out all options, you can often, but not always, use the `-h` option for a command. For a more verbose set of instructions, you can view the command's manual page, with the `man` command.
+Many commands have both short and long versions of options. For example, these commands are equivalent:
 
-For example, `man ls` will show you the manual page for the `ls` command.
+```
+csvgrep -c 'Requester::Organization Name' -m 'Law' data/ice-foia-logs/2024-08_FOIA_Log.csv 
+```
 
-To scroll, you can use space to page down, arrow keys to go up/down line-by-line, and `q` to quit.
+```
+csvgrep --columns 'Requester::Organization Name' --match 'Law' data/ice-foia-logs/2024-08_FOIA_Log.csv 
+```
 
-### Filename generation
+The short, single-character options are good for typing quickly and the long options are better for use in a script or data diary, where you want the reader to have a better idea of what a command is doing without consulting documentation.
+
+## Getting help
+
+Most command-line programs have some kind of built-in documentation on your system.
+
+To find out all options, you can often, but not always, use the `-h` option for a command. For example:
+
+```
+csvgrep -h
+```
+
+For a more verbose set of instructions, you can view the command's manual page, with the `man` command.
+
+For example,
+
+```
+man ls
+```
+
+will show you the manual page for the `ls` command.
+
+To browse the manual page, you can use space to page down, arrow keys to go up/down line-by-line, and `q` to quit.
+
+## Navigating the file system
+
+### Absolute and relative paths
+
+You can think of the filesystem on a Unix system as a tree or hierarchy, it starts at the root, which is denoted by the `/` symbol. Each level below the root is separated with another `/` symbol.
+
+For example, on my system, this file lives at `/Users/ghing/workspace/nicar-2025-command-line/tipsheet.md`, 4 levels below the root.
+
+On the command-line, the string that tells the program where to find a file or directory is called a *path*.
+
+When a *path* is referenced beginning with a `/`, it is called an *absolute* path. The path contains all of the file or directories *parents* all the way down from the root.
+
+When a *path* doesn't begin with a `/`, it's a *relative path*. That is, it's relative to your current working directory.
+
+If I'm currently in the directory `/Users/ghing/workspace/nicar-2025-command-line`, I could reference `tutorial/solutions.md` like that - using its relative path. I could also reference it with the absolute path, `/Users/ghing/workspace/nicar-2025-command-line/tutorial/solutions.md`.
+
+### Some special paths 
+
+- `.`: The current directory
+- `..`: The parent directory
+- `~`: The home directory. The files you create and own, as well as system configuration for your user, live somewhere under this directory. On a Mac, this is a subdirectory of `/Users`
+
+### `pwd` tells you where you are
+
+Running
+
+```
+pwd
+```
+
+will print the *absolute path* of the current working directory.
+
+Use this if you're confused about where you are on the filesystem.
+
+### `cd` changes directory
+
+To move around the filesystem, use `cd`.
+
+If I'm in this project directory, I can use
+
+```
+cd tutorial
+```
+
+to change the working directory to the `tutorial` subdirectory.
+
+To move back up, I can use:
+
+```
+cd ..
+```
+
+If I wanted to go up two levels, I would use:
+
+```
+cd ../..
+```
+
+Without any arguments, `cd` will change directory to a user's home directory. It's equivalent to `cd ~`.
+
+### `ls` lists directory contents and file details
+
+Without any arguments, `ls` will show you the contents of the current directory.
+
+You can also specify a path and ls will show you the contents of that directory:
+
+```
+ls tutorial
+```
+
+Or, you can specify an absolute path:
+
+```
+ls /opt/homebrew
+```
+
+Using the `-l` option will show more details of an individual file:
+
+```
+ls -l tutorial/solutions.md
+```
+
+or a all the files in a directory:
+
+```
+ls -l tutorial
+```
+
+The details include the permissions, the user and group ownership, the size and modification timestamp.
+
+The `-h` option causes file sizes to be shown with human-readable units:
+
+```
+ls -lh tutorial
+```
+
+will show a file's size as `22K` instead of `22517`.
+
+## Filename generation
 
 - `*`: Matches any string
 - `?`: Matches any single character
@@ -128,6 +251,10 @@ To scroll, you can use space to page down, arrow keys to go up/down line-by-line
 - `<[x]-[y]>`: Matches any number in the range x to y, inclusive.
 
 There's a lot more. See the [Expansion](https://zsh.sourceforge.io/Doc/Release/Expansion.html#Filename-Expansion) section of the zsh manual.
+
+## `<tab>` auto-completes things
+
+
 
 ## Creating and modifying files
 
