@@ -855,3 +855,199 @@ I used `grep` to see if there were any FOIA requests about the 287(g) program:
 ```
 grep -Ei '287\(?g\)?' data/ice-foia-logs/*.csv
 ```
+
+---
+
+## Redirecting input and output
+
+### What we're learning
+
+Commands:
+
+- `in2csv`
+- `csvgrep`
+- `csvformat`
+- `pbcopy`
+
+---
+
+## Redirecting input and output
+
+### What we're learning
+
+We're going to learn about these concepts:
+
+- *Standard output*
+- `|` (pipe) operator to redirect the output of one program into the input of another.
+- `>` operator to redirect the output of a program to a file.
+- Using `-h` or `--help` to get command help.
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Let's start with generating some output.
+
+Use grep to find FOIA log records that might be requests from lawyers:
+
+```bash
+grep -i 'law' data/ice-foia-logs/*.csv
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Pipe the output of `grep` to `less` to page through the results:
+
+```bash
+grep -i 'law' data/ice-foia-logs/*.csv | less
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Pipe the output `grep` to `wc` to count the number of lines that match a pattern:
+
+```
+grep -i 'tucson' data/ice-foia-logs/*.csv | wc -l
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Use `in2csv` to convert from Excel to CSV:
+
+```bash
+in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx 
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Use `>` to redirect this output to a file:
+
+```bash
+in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx > data/ice-foia-logs/FY2024_FOIA_AppealsLog.csv
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Use `csvgrep` to search for matching records in a way that is aware of columns:
+
+```bash
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Use the `-h` option to learn about a program's syntax and functionality:
+
+```bash
+csvgrep -h
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Pipe the output of `csvgrep` to `csvformat` to convert CSV to TSV:
+
+```
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T
+```
+
+---
+
+## Redirecting input and output
+
+### Try it together
+
+Pipe the TSV output to `pbcopy` to copy it to the system clipboard, and paste into a spreadsheet program:
+
+```bash
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T | pbcopy
+```
+
+---
+
+## Redirecting input and output
+
+### Try it yourself
+
+- Use `csvgrep` to find requests that match "Law" in the `Requester::Organization Name` column of `data/ice-foia-logs/2024-10_FOIA_Log.csv`.
+- Use `csvcut` to display only that column.
+- Save this to `data/ice-foia-logs/2024_lawyer_requests.csv`.
+- Bonus points: Use `uniq` and `csvsort` to get only unique lawyer/law firm names.
+- Then count the number of unique names.
+
+---
+
+## Redirecting input and output
+
+### Try it yourself
+
+Use `csvgrep` to search for "Law" in the `Requester::Organization Name` column:
+
+```bash
+csvgrep -c 'Requester::Organization Name' -m 'Law' data/ice-foia-logs/2024-10_FOIA_Log.csv
+```
+
+---
+
+## Redirecting input and output
+
+### Try it yourself
+
+Then pipe that output to `csvcut` to limit the columns:
+
+```bash
+csvgrep -c 'Requester::Organization Name' -m 'Law' data/ice-foia-logs/2024-10_FOIA_Log.csv | csvcut -c 'Requester::Organization Name'
+```
+
+---
+
+## Redirecting input and output
+
+### Try it yourself
+
+Redirect the output to a file with `>`:
+
+```bash
+csvgrep -c 'Requester::Organization Name' -m 'Law' data/ice-foia-logs/2024-10_FOIA_Log.csv | csvcut -c 'Requester::Organization Name' > data/ice-foia-logs/2024_lawyer_requests.csv 
+```
+
+---
+
+## Redirecting input and output
+
+### Try it yourself
+
+Use `csvsort` to sort the organization names so that `uniq` will deduplicate them, then count the rows with `wc -l`:
+
+```bash
+csvgrep -c 'Requester::Organization Name' -m 'Law' data/ice-foia-logs/2024-10_FOIA_Log.csv | csvcut -c 'Requester::Organization Name' | csvsort | uniq | wc -l
+```
