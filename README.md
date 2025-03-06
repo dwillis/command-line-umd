@@ -14,6 +14,10 @@ If you're using a Windows computer without the Windows Subsystem for Linux or a 
 
 If you're following along on a non-lab system, you'll need to clone this repository.
 
+The tutorial portion is oriented around the Z shell (Zsh), which is the current default on Mac systems. Most, if not all, of the examples in the tutorial should work on other shells, but if you encounter errors, that may be the reason.
+
+Finally, some of the examples in the tutorial assume you have [csvkit](https://github.com/wireservice/csvkit) installed.
+
 ## What's in here?
 
 - `tutorial`: Instructions and data for the hands-on activity we'll walk through during the conference session. You should also be able to follow along on your own computer.
