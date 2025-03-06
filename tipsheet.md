@@ -145,6 +145,8 @@ will show you the manual page for the `ls` command.
 
 To browse the manual page, you can use space to page down, arrow keys to go up/down line-by-line, and `q` to quit.
 
+I often like to use `/` to search for the "EXAMPLES" section that is present in many manual pages, which I often find most helpful for quickly understanding how to use a program.
+
 ## Editing and reusing commands
 
 ### Arrow keys let you step through previous comands one-by-one
@@ -342,7 +344,6 @@ To delete a directory that contains files, as well as all the files in that dire
 rm -rf tutorial/data/manual
 ```
 
-
 ## Viewing and previewing files
 
 `cat` will show the contents of a text file. `cat` is short for concatenate, and can be used to combine text files, but when only one file is given as an argument, it just shows the contents.
@@ -361,11 +362,28 @@ Typing `/` followed by a pattern, will take you to the first instance matching t
 
 ### `find` searches file names/metadata
 
+If we want to see if any file or directory **names** match a pattern, use `find`.
+
+`find`'s syntax is a bit different than many commands in terms of the position of the arguments and options, and the format of the options.
+
+Let's look at an example, that finds all files or directories with "foia" (or "FOIA") in the name:
+
+```
+find tutorial/data -iname '*foia*' -not -type d
+```
+
+- `find`: The name of the program.
+- `tutorial/data`: Find files that live under this directory.
+- `-iname '*foia*'`: Only find files with 'foia' somewhere in the name. We quote this because we want the pattern to be handled by `find`, not expanded by the shell, which causes an error.
+- `-not -type d`: Don't return directories.
+
 ### `grep` searches contexts of text files
+
+If we want to search the **contents** of text files, use `grep`.
 
 ## Redirecting input and output
 
-The output of a program is sent to standard output (often abbreviated as stdout). The default input of a program is called standard input.
+The output of a program is sent to *standard output* (often abbreviated as stdout). The default input of a program is called *standard input*.
 
 '>' redirects the output of a command to a file.
 
@@ -375,17 +393,62 @@ The output of a program is sent to standard output (often abbreviated as stdout)
 
 '|' between commands redirects the output of one command into the input of the next. This feature is what enables the "Unix philosophy" of writing small, single-purpose programs.
 
+There's also *standard error*. If you still see terminal output after redirecting *standard output*, the remaining output is probably being written to *standard error*. You can redirect that separately. See the [Zsh redirection documentation](https://zsh.sourceforge.io/Doc/Release/Redirection.html) for a complete list.
+
 ## Running commands on many inputs
 
 ### `find` can run a command for each matching file
 
 The `find` command has an `-exec` option that will run a command on all files matched by `find`.
 
-This is the command I used to create the CSV versions of the Excel spreadsheets of 2024 ICE FOIA logs.
+This is the command I used to create the CSV versions of the Excel spreadsheets of 2024 ICE FOIA logs:
 
 ```
 find tutorial/data/ice-foia-logs -name '2024*' -exec sh -c 'in2csv "{}" > tutorial/data/ice-foia-logs/$(basename "{}" | sed s/xlsx/csv/)' \;
 ```
+
+Let's break this down:
+
+- `find`: The name of the program we're running.
+- `tutorial/data/ice-foia-logs`: Search for all files under this directory.
+- `-name '2024*'`: Only find files that begin with "2024".
+- `-exec`: For each file found, run a command ...
+- `sh`: This is the command that is run for each file. It is another shell. In many uses of `find -exec`, we don't need to use this, but we need to do some more complex things in the command.
+- `-c`: In the shell, `sh`, run the command specified in the string.
+- `in2csv "{}" > tutorial/data/ice-foia-logs/$(basename "{}" | sed s/xlsx/csv/)`: This is the command run in the shell.
+  - `in2csv`: Run the `in2csv` program ...
+  - `"{}"`:  ... on this file. `{}` will be replaced by the path of the file discovered by `find`.
+  - `>`: redirect the output of `in2csv` to a file.
+  - `tutorial/data/ice-foia-logs/`: the output file should live under this directory
+  - `$(basename "{}" | sed s/xlsx/csv/)`: the name of the file. We get the filename by running another set of commands.
+    - `$()`: Runs the part inside the parens as a command
+    - `basename "{}"`: Get the file portion only of the file. `{}` will be replaced by the path of the file discovered by `find`.
+    - `|`: pass the output of `basename` to the input of another program.
+    `sed s/xlsx/csv/`: That other program is `sed`. Provide an expression that substitutes `xlsx` in the input string (in this case, the filename) with `csv`.
+- `\;`: Tell `find -exec` this is the end of the command.
+
+That's an inception level of complexity. I often build commands like this by trying out each portion separately.
+
+For example, I'll run
+
+```
+echo 'foo.xlsx' | sed s/xlsx/csv/
+```
+
+then
+
+```
+basename tutorial/data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx | sed s/xlsx/csv/
+FY2024_FOIA_AppealsLog.csv
+```
+
+then a simpler version of `find -exec`, like:
+
+```
+find tutorial/data/ice-foia-logs -name '2024*' -exec echo "{}" \;
+```
+
+until I understand how each piece works. Then I combine it all together.
 
 ### `xargs` runs a command for a list of items
 
@@ -396,6 +459,17 @@ For example, to use `curl` to download all the URLs in a text file, use:
 ```
 xargs -n 1 curl -O < ice_detention_statistic_urls.txt
 ```
+
+Let's disect this command:
+
+- `xargs`: The program we're running.
+- `-n 1`: Read one argument from standard input. This is because there is only one item per line in the input file, the URL to download.
+- `curl -O`: The command that will be run for each line of standard input.
+  - `curl`: The program that will be run. `curl` is a command-line tool to make network requests, particularly HTTP.
+  - `-O`: Option that tells curl to save the downloaded file using the filename portion of the URL.
+- `< ice_detention_statistic_urls.txt`: Instead of reading the input from standard input, `xargs` should read its input from the file `ice_detention_statistic_urls.txt`.
+
+One note about `curl`! Many browser developer tools' network panel let you copy a request as a curl command! This is great for replaying and modifying network requests.
 
 ## Next steps
 
@@ -417,10 +491,20 @@ There are so many other topics that are beyond the scope of an introduction, but
 
 ## Resources
 
+### Past NICAR tipsheets
+
 - [AJVicens/command-line-for-reporters](https://github.com/AJVicens/command-line-for-reporters): Tip sheet from this session at a past NICAR conference. 
 - [armendariz/terminal_recipes](https://github.com/armendariz/terminal_recipes): Tip sheet for a similar session from the 2015 NICAR conference.
 - [chrislkeller/nicar15-command-line-basics](https://github.com/chrislkeller/nicar15-command-line-basics): Tip sheet from a different version of the 2015 NICAR conference.
 - [useful tools for the command line](https://docs.google.com/presentation/d/1TwQdzwfjrAaNxbVlkRa_2zn6UPOFFOkOcFOTb0mASTw/edit#slide=id.ga856f3037_028)
 - [KarrieK/NICAR16](https://github.com/KarrieK/NICAR16): Tip sheet and tutorial for a similar session at the 2016 NICAR conference. This one is more focused on csvkit.
-- [Command line crash course - Learn web development | MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+
+### General command line references
+
+- [Command line crash course - Learn web development](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line) (Mozilla Developers Network): A good general tutorial, similar in scope to this one.
+- [veltman/clmystery: A command-line murder mystery](https://github.com/veltman/clmystery): A really fun murder mystery activity for practicing using the command line.
+- [You Suck at Programming](https://ysap.sh/): Entertaining videos about shell scripting and using Unix tools.
+
+### Redirecting input and output
+
 - [Input/Output Redirection in the Shell](https://thoughtbot.com/blog/input-output-redirection-in-the-shell)
