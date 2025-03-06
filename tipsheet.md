@@ -322,11 +322,83 @@ this could match two files or directories and the shell will show me the options
 
 ### `mkdir` creates directories
 
+The simple version creates a new, empty directory in the current working directory:
+
+```
+mkdir source_data
+```
+
+You can also specify the parent, and the directory will be created there:
+
+```
+mkdir data/source/arrests
+```
+
+The above command creates `arrests` in the `data/source` directory.
+
+It assumes the parent directories `data` and `source` exist.
+
+But, if you want to create a new directory, and all its parents, use the `-p` option:
+
+```
+mkdir -p data/source/arrests
+```
+
 ### `touch` creates empty files
 
 It also updates the timestamp of existing files.
 
 ### `mv` renames files and moves them to different directories
+
+To rename a file, make the second argument the new name, e.g.
+
+```
+mv mok_data.csv mock_data.csv
+```
+
+This works with directories too:
+
+```
+mv src_data source_data
+```
+
+If the second argument is a directory that exists, the file will be moved there instead of renamed:
+
+```
+mv mock_data.csv data/source
+```
+
+You can move multiple files to a directory, or use wildcards:
+
+```
+mv mock_data_1.csv ~/Downloads/mock_data_2.csv data/source
+```
+
+```
+mv mock_data*.csv data/source
+```
+
+### Renaming multiple files, matching a pattern
+
+Zsh has a built-in command called `zmv`, which allows you to rename files, capturing the part of the filename that matches a wildcard pattern in the first argument and making it available to the second argument, the format of the renamed files.
+
+To make `zmv` available to the shell, first run:
+
+```
+autoload zmv
+```
+
+Then you can run a command like this: 
+
+```
+zmv 'data/source/national_caseload__annual__202302__disk(*)' 'data/source/national_caseload__monthly__202302__disk$1'
+```
+
+The above examole changes the file prefix by inserting "monthly" but preserves the disk numbers.
+
+See [How to use zmv — Z Shell’s super-smart file renamer](https://blog.smittytone.net/2021/04/03/how-to-use-zmv-z-shell-super-smart-file-renamer/) for more examples.
+
+If you're using a different shell, you could install [rename](http://plasmasturm.org/code/rename/).
 
 ### `rm` deletes files
 
