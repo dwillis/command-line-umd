@@ -145,6 +145,23 @@ will show you the manual page for the `ls` command.
 
 To browse the manual page, you can use space to page down, arrow keys to go up/down line-by-line, and `q` to quit.
 
+## Editing and reusing commands
+
+### Arrow keys let you step through previous comands one-by-one
+
+### `history` shows you a big chunk of history
+
+### `ctrl+r` lets you search your history
+
+### Navigating the current command
+
+- `ctrl-a`: Move cursor to the beginning of the line
+- `ctrl-e`: Move cursor to the end of the line
+- `esc-f`: Move cursor forward one word
+- `esc-b`: Move cursor back one word
+
+Again, there's a lot more.
+
 ## Navigating the file system
 
 ### Absolute and relative paths
@@ -245,15 +262,58 @@ will show a file's size as `22K` instead of `22517`.
 
 ## Filename generation
 
+Typing out the full path to multiple files can be tedious. Luckily, there are patterns that can be used to match multiple paths.
+
 - `*`: Matches any string
 - `?`: Matches any single character
 - `(x|y)`: Matches `x` or `y`
 - `<[x]-[y]>`: Matches any number in the range x to y, inclusive.
 
-There's a lot more. See the [Expansion](https://zsh.sourceforge.io/Doc/Release/Expansion.html#Filename-Expansion) section of the zsh manual.
+There's a lot more. See the [Expansion](https://zsh.sourceforge.io/Doc/Release/Expansion.html#Filename-Expansion) section of the Zsh manual.
 
-## `<tab>` auto-completes things
+For example, instead of typing:
 
+```
+ls -lh tutorial/data/ice-foia-logs/2024-08_FOIA_Log.csv tutorial/data/ice-foia-logs/2024-09_FOIA_Log.csv tutorial/data/ice-foia-logs/2024-10_FOIA_Log.csv
+```
+
+I could just type:
+
+```
+ls -lh tutorial/data/ice-foia-logs/2024*_FOIA_Log.csv
+```
+
+By convention, files and directories that begin with `.`, e.g. `~/.zshrc` are *hidden*. To show hidden files, use the `-a` option, e.g.:
+
+```
+ls -a ~
+```
+
+## `<tab>` auto-completes programs, paths and more 
+
+Another way to avoid typing is to use tab completion.
+
+If you start typing a command or a file path, and then press the `tab` key, the shell will complete the matching command or path. If there are multiple matches for what you've typed so far, the shell will show you the potential matches.
+
+For example, if I type
+
+```
+ls tu<tab>
+```
+
+The shell will expand that to
+
+```
+ls tutorial/
+```
+
+If I type
+
+```
+ls t<tab>
+```
+
+this could match two files or directories and the shell will show me the options: `tipsheet.md` and `tutorial`.
 
 
 ## Creating and modifying files
@@ -268,22 +328,20 @@ It also updates the timestamp of existing files.
 
 ### `rm` deletes files
 
-## Editing and reusing commands
+Many people alias `rm` to `rm -i` so it asks you for confirmation before deleting a file.
 
-### Arrow keys let you step through previous comands one-by-one
+### `rmdir` deletes empty directories
 
-### `history` shows you a big chunk of history
+If this command fails, check that there aren't hidden files, with `ls -a`.
 
-### `ctrl+r` lets you search your history
+To delete a directory that contains files, as well as all the files in that directory and its descendents, use the `-r` (recurse) and `-f` options.
 
-### Navigating the current command
+⚠️ Be extremely careful with this command. It will not ask you to confirm, and you can't recover the files.
 
-- `ctrl-a`: Move cursor to the beginning of the line
-- `ctrl-e`: Move cursor to the end of the line
-- `esc-f`: Move cursor forward one word
-- `esc-b`: Move cursor back one word
+```
+rm -rf tutorial/data/manual
+```
 
-Again, there's a lot more.
 
 ## Viewing and previewing files
 
@@ -319,6 +377,8 @@ The output of a program is sent to standard output (often abbreviated as stdout)
 
 ## Running commands on many inputs
 
+### `find` can run a command for each matching file
+
 The `find` command has an `-exec` option that will run a command on all files matched by `find`.
 
 This is the command I used to create the CSV versions of the Excel spreadsheets of 2024 ICE FOIA logs.
@@ -327,9 +387,19 @@ This is the command I used to create the CSV versions of the Excel spreadsheets 
 find tutorial/data/ice-foia-logs -name '2024*' -exec sh -c 'in2csv "{}" > tutorial/data/ice-foia-logs/$(basename "{}" | sed s/xlsx/csv/)' \;
 ```
 
+### `xargs` runs a command for a list of items
+
 The `xargs` command takes a list of items on standard input and runs a command on them. 
 
+For example, to use `curl` to download all the URLs in a text file, use:
+
+```
+xargs -n 1 curl -O < ice_detention_statistic_urls.txt
+```
+
 ## Next steps
+
+There are so many other topics that are beyond the scope of an introduction, but that I use regularly in my work. Here are some other concepts that you might want to check out, in no particular order.
 
 - How the shell finds programs and decides which one to run, i.e. the *system path*.
 - File permissions
