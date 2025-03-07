@@ -580,3 +580,7 @@ There are so many other topics that are beyond the scope of an introduction, but
 ### Redirecting input and output
 
 - [Input/Output Redirection in the Shell](https://thoughtbot.com/blog/input-output-redirection-in-the-shell)
+
+### Tools
+
+- [simonw/llm-cmd](https://github.com/simonw/llm-cmd): A plugin to Simon Willison's [LLM](https://llm.datasette.io/en/stable/) command-line utility that suggests commands based on human-language descriptions of the task.
