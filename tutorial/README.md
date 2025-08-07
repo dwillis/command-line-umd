@@ -231,7 +231,21 @@ ls tutorial/data/census-bureau-popest/20<tab>
 
 Change directory to the `tutorial` directory.
 
-Using `ls` or a combination of `cd` and `ls`, what is the most recent fiscal year for which ICE detention statistics are available?
+Using `ls` or a combination of `cd` and `ls`, explore the ICE detention statistics directory and answer these questions:
+
+1. What is the most recent fiscal year for which ICE detention statistics are available?
+2. How many detention statistics files are there for fiscal year 2025?
+3. What do you think the numbers in the FY25 filenames represent (hint: look at the dates)?
+
+**Write your answers here:**
+
+1. Most recent fiscal year: 
+
+2. Number of FY25 files: 
+
+3. What the numbers represent: 
+
+(Check your answers against the solutions file when complete)
 
 ## Creating and modifying files
 
@@ -331,6 +345,18 @@ Use the arrow and `<delete>` keys to edit the command so it reads `touch data/ma
 
 Typing the minimal number of characters, delete the file `data/manual/mock_data/mock_data_1.txt` and delete the directory `data/manual/mock_data`. 
 
+**Challenge**: Can you do this using only command history features (arrow keys or `<ctrl>+r`) without typing the full file paths? Try it and note which method you used.
+
+**Write your answer here:**
+
+Method used (arrow keys or ctrl+r): 
+
+Commands used: 
+
+1. 
+
+2. 
+
 ## Viewing and previewing files
 
 ### What we're learning
@@ -389,7 +415,21 @@ wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 
 ### Try it yourself
 
-What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+Use the commands you've learned to examine the Tucson Police Activity CSV file and answer these questions:
+
+1. What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+2. How many total rows are in this file? (Remember to account for the header row)
+3. Use `tail` to look at the last few entries - what was the most recent date in the file when this data was exported?
+
+**Hint**: Use `less` with search (`/`), `wc -l` for counting, and `tail` to examine the end of the file.
+
+**Write your answers here:**
+
+1. First incident type on 2/1/2025: 
+
+2. Total rows (excluding header): 
+
+3. Most recent date in file: 
 
 ## Searching for files and their contents
 
@@ -439,7 +479,27 @@ The manual pages are dense and long, but you will learn so much by skimming or r
 
 ### Try it yourself
 
-How would you find only FOIA logs for 2024 that are in the CSV file format?
+Explore the FOIA logs and answer these questions:
+
+1. How would you find only FOIA logs for 2024 that are in the CSV file format?
+2. Count how many 2024 CSV FOIA log files there are.
+3. Use a different pattern to search the FOIA log CSV files for something of interest to you. What search term did you use and what did you find?
+
+**Bonus challenge**: Can you figure out which month in 2024 had the most FOIA requests by comparing the file sizes using `ls -l`?
+
+**Write your answers here:**
+
+1. Command to find 2024 CSV FOIA logs: 
+
+2. Number of 2024 CSV files: 
+
+3. Your search term: 
+
+   What you found: 
+
+**Bonus answer:**
+
+Month with most requests: 
 
 ### Try it together
 
@@ -471,7 +531,41 @@ grep -ilr 'tucson' data
 
 ### Try it yourself
 
-Use a different pattern to search the FOIA log CSV files for something of interest to you. What did you find?
+Use a different pattern to search the FOIA log CSV files for something of interest to you. What search term did you use and what did you find?
+
+**Write your answer here:**
+
+Search term used: 
+
+What you found: 
+
+### Try it yourself
+
+Now let's practice with csvkit tools. Work through these exercises and record your answers:
+
+1. Use `csvgrep` to find requests that match "Law" in the `Requester::Organization Name` column of `data/ice-foia-logs/2024-10_FOIA_Log.csv`.
+2. Use `csvcut` to display only that column and save this to `data/ice-foia-logs/2024_lawyer_requests.csv`.
+3. **Analysis questions**: 
+   - How many total lawyer/law firm requests were there?
+   - Can you identify any patterns in the organization names?
+   - Which appears more frequently: "Law" or "Legal" in the organization names?
+
+**Bonus challenge**: Use `uniq` and `csvsort` to get only unique lawyer/law firm names, then count them. How does this number compare to the total number of requests from legal organizations?
+
+**Write your answers here:**
+
+1. Command used for csvgrep: 
+
+2. Command used to save with csvcut: 
+
+3. Analysis answers:
+   - Total lawyer/law firm requests: 
+   - Patterns observed: 
+   - More frequent ("Law" or "Legal"): 
+
+**Bonus answer:**
+   - Number of unique names: 
+   - Comparison to total requests: 
 
 ## Redirecting input and output
 
@@ -578,6 +672,22 @@ Note that this pipeline has multiple steps connected with `|`. We can connect th
 
 ### Try it yourself
 
+### Try it yourself
+
 Use `csvgrep` to find requests that match "Law" in the `Requester::Organization Name` column of `data/ice-foia-logs/2024-10_FOIA_Log.csv` and use `csvcut` to display only that column. Save this to a file named `data/ice-foia-logs/2024_lawyer_requests.csv`.
 
 Bonus points: Use `uniq` and `csvsort` to get only unique lawyer/law firm names. Then count the number of unique names.
+
+**Write your final answers here:**
+
+Commands used:
+
+1. csvgrep command: 
+
+2. csvcut and save command: 
+
+3. Bonus - unique names command: 
+
+Results:
+- Total requests from legal organizations: 
+- Number of unique legal organization names: 
