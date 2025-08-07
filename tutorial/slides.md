@@ -81,6 +81,36 @@ pip install csvkit
 
 ---
 
+## Setting up slides
+
+Install the slides presentation tool:
+
+```bash
+go install github.com/maaslalani/slides@latest
+```
+
+Then run the slides:
+
+```bash
+slides tutorial/slides.md
+```
+
+Use arrow keys to navigate through slides, `q` to quit.
+
+---
+
+## Using multiple terminals
+
+In VS Code, you can open multiple terminal tabs:
+
+- Click the `+` icon next to your terminal tab to create a new terminal
+- Use `Ctrl+Shift+\`` to open a new terminal
+- Click between terminal tabs to switch contexts
+- **Tip**: Use one terminal for slides, another for running commands
+- You can also split terminals using the split panel icon
+
+---
+
 ## There's another layer
 
 - Program that interprets the command is called the *shell*.
