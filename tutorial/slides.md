@@ -65,6 +65,22 @@ To access the command line in GitHub Codespaces:
 
 ---
 
+## Setting up csvkit
+
+Install csvkit, a Python tool for working with CSV data:
+
+```bash
+pip install csvkit
+```
+
+**csvkit** is a suite of command-line tools for converting to and working with CSV files. It includes utilities like:
+- `in2csv` - converts Excel, JSON, and other formats to CSV
+- `csvgrep` - search CSV files by column
+- `csvcut` - extract specific columns
+- `csvstat` - generate summary statistics
+
+---
+
 ## There's another layer
 
 - Program that interprets the command is called the *shell*.
