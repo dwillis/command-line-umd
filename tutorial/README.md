@@ -1,29 +1,31 @@
 # Introduction to the command line tutorial
 
-## Accessing the command-line on a Mac
+## Accessing the command-line with GitHub Codespaces
 
 ## What we're learning
 
 We'll learn about this concept:
 
-- How to access the command line with software that is pre-installed on Mac computers.
+- How to access the command line using GitHub Codespaces, a cloud-based development environment.
 
 ## Try it together
 
-We'll access the command-line through a program that is pre-installed on all Mac computers called `Terminal`. This is an example of a software called a terminal emulator, so called because it mimics early interfaces to systems that only had a monitor showing a command-line interface and a keyboard.
+We'll access the command-line through GitHub Codespaces, which provides a full Linux environment in your web browser. This is an example of a cloud-based terminal emulator that gives you access to a command-line interface without needing to install anything on your local computer.
 
-Using Finder (the program that you use to browse files and folders on a Mac):
+To access the command line in GitHub Codespaces:
 
-- Open Finder.
-- Click on the `Applications` item in the sidebar.
-- Double click on the icon for the `Utilities` folder.
-- Double click on the icon for `Terminal`.
+- Open the GitHub repository containing this tutorial in your web browser.
+- Click the green `Code` button on the repository page.
+- Select the `Codespaces` tab.
+- Click `Create codespace on main` (or use an existing codespace if you have one).
+- Wait for the codespace to load - this may take a minute or two.
+- Once loaded, you'll see VS Code running in your browser with access to a terminal.
 
-Using Spotlight (the little magnifying glass icon in the bar at the upper-right-hand corner of your screen):
+To open the terminal in Codespaces:
 
-- Open Spotlight search by clicking on the magnifying glass icon, or holding down the `Cmd+Space` keys on your keyboard.
-- Start typing `terminal` in the text input that appears.
-- When you see an entry for `Terminal` appear in the search results, click on that entry, or press the `Return` key.
+- Look for the `Terminal` menu at the top of the VS Code interface.
+- Click `Terminal` > `New Terminal`, or use the keyboard shortcut `Ctrl+Shift+\`` (backtick).
+- The terminal will appear at the bottom of your screen.
 
 ## Getting unstuck
 
@@ -74,7 +76,6 @@ We're going to use these commands to move across the filesystem or learn where w
 - `cd` changes directory to a different directory on your filesystem.
 - `pwd` prints the current working directory.
 - `ls` list files in the current working directory or a specified path.
-- `open` opens a file or directory in the default program for that file type on your Mac.
 
 We'll also learn about these concepts:
 
@@ -93,17 +94,17 @@ Check what directory you're in by running:
 pwd
 ```
 
-Change directory to the project root directory. At NICAR 2025, on the lab computers, this will be `~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs`. On my computer, the project root is instead located at `/Users/ghing/workspace/nicar-2025-command-line`.
+In a GitHub Codespace, you'll start in the `/workspaces/command-line-umd` directory (or similar, depending on your repository name). This is the project root directory where all the tutorial files are located.
 
 ```
-cd ~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs
+cd tutorial
 ```
 
-In this case `cd` is the *command* and `~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs` is the *argument*.
+In this case `cd` is the *command* and `tutorial` is the *argument*.
 
-`~` is a special path on Unix systems. It resolves to the logged-in user's *home directory*, which is the parent folder for configuration files as well as files they create. On a Mac system, user home directories live under `/Users`.
+`~` is a special path on Unix systems (including Linux, which runs in GitHub Codespaces). It resolves to the logged-in user's *home directory*, which is the parent folder for configuration files as well as files they create. In a Codespace, the home directory is typically `/home/codespace`.
 
-`/Users` begins with a `/` character, so it's an *absolute path*.
+`/home` begins with a `/` character, so it's an *absolute path*.
 
 Are we in the right directory? Check by running `ls` to list its contents:
 
@@ -132,13 +133,7 @@ ls
 
 You should see a `README.md` file and a `data` directory.
 
-While we're here let's open the current folder in finder, so you can open some of the helper files in a text editor if you want to jump ahead, look back or get help. We'll use the `open` command:
-
-```
-open .
-```
-
-This should open a Mac Finder window for the current directory. You might want to double click on the files `README.md` to open this file in a text editor, as well as `solutions.md`.
+In GitHub Codespaces, you can explore the project files using the VS Code file explorer on the left side of the screen. This gives you a visual way to browse the files and folders, similar to how you might use Finder on a Mac or File Explorer on Windows. You can double-click on files like `README.md` and `solutions.md` to open them in the editor.
 
 The `.` is a special file path that means "the current working directory."
 
@@ -487,7 +482,8 @@ We're going to use these commands to experiment with redirecting the output of o
 - `in2csv` converts many data file formats to CSV.
 - `csvgrep` works like `grep`, but in a way that is aware of data's structure.
 - `csvformat` reformats delimited text files, e.g. converting CSV to TSV.
-- `pbcopy` copies its input to the system clibboard.
+
+**Note:** The csvkit tools should be pre-installed in your Codespace. If for some reason they're not available, you can install them by running `pip install csvkit` in the terminal.
 
 We're going to learn about these concepts:
 
@@ -570,13 +566,15 @@ Note that I used the short version of the option that outputs tabs instead of co
 
 What if I wanted to bring this into a spreadsheet program like Excel or Google Sheets?
 
-I can redirect the output to a program called `pbcopy` that copies the text to the system clipboard that can then be pasted into the spreadsheet.
+In GitHub Codespaces, you can save the output to a file and then download it, or copy the output directly from the terminal. Let's save it to a file:
 
 ```
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T | pbcopy
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T > tucson_requests.tsv
 ```
 
-Note that this pipeline has three steps whereas before we only had two. We can connect the inputs and outputs of programs using `|` in pipelines that could be many steps. But each step might be a very simple command. This helps experimenting and testing with each part of the pipeline.
+You can then download this file using VS Code's file explorer (right-click on the file and select "Download"), or copy its contents and paste into a spreadsheet.
+
+Note that this pipeline has multiple steps connected with `|`. We can connect the inputs and outputs of programs using `|` in pipelines that could be many steps. But each step might be a very simple command. This helps experimenting and testing with each part of the pipeline.
 
 ### Try it yourself
 

@@ -1,22 +1,43 @@
 # Introduction to the command line
 
-This is a tip sheet and interactive activity for a hands-on session about using the command line for the [2025 NICAR](https://www.ire.org/training/conferences/nicar-2025/) conference.
+This is a tip sheet and interactive activity for a hands-on session about using the command line with GitHub Codespaces.
 
-The goal is to offer a fundamental, but hopefully not too basic introduction to using command-line programs on Mac OS. I'm trying to focus on areas where I've seen people struggle with using command-line programs in the newsroom. 
+The goal is to offer a fundamental, but hopefully not too basic introduction to using command-line programs in a cloud-based environment. I'm trying to focus on areas where I've seen people struggle with using command-line programs in the newsroom. 
 
 ## Assumptions
 
-This tutorial is intended for Mac computers in the hands-on lab at the conference. 
+This tutorial is intended for use with GitHub Codespaces, which provides a Linux-based development environment in your web browser.
 
-If you have your own computer running Mac OS or Linux (including under the Windows Subsystem for Linux), you should be able to follow along.
+If you have your own computer running Mac OS or Linux (including under the Windows Subsystem for Linux), you should be able to follow along with minor modifications.
 
-If you're using a Windows computer without the Windows Subsystem for Linux or a tablet device such as an iPad, you're going to have a much more difficult time following along. You could try using [JSLinux](https://bellard.org/jslinux/), but no guarantees that everything will work correctly.
+If you're using a Windows computer without the Windows Subsystem for Linux or a tablet device such as an iPad, GitHub Codespaces will provide you with a better experience than trying to run these commands locally.
 
-If you're following along on a non-lab system, you'll need to clone this repository.
+The tutorial portion is oriented around the Bash shell, which is the default in GitHub Codespaces. Most, if not all, of the examples in the tutorial should work on other shells, but if you encounter errors, that may be the reason.
 
-The tutorial portion is oriented around the Z shell (Zsh), which is the current default on Mac systems. Most, if not all, of the examples in the tutorial should work on other shells, but if you encounter errors, that may be the reason.
+Finally, some of the examples in the tutorial use [csvkit](https://github.com/wireservice/csvkit), which will be automatically installed when you create your Codespace.
 
-Finally, some of the examples in the tutorial assume you have [csvkit](https://github.com/wireservice/csvkit) installed.
+## Getting Started with GitHub Codespaces
+
+1. **Open this repository in GitHub Codespaces:**
+   - Click the green `Code` button on this repository's GitHub page
+   - Select the `Codespaces` tab
+   - Click `Create codespace on main`
+   - Wait for the environment to load (this may take a minute or two)
+   - csvkit will be automatically installed during setup
+
+2. **Open the terminal:**
+   - Once Codespaces loads, you'll see VS Code in your browser
+   - Open a terminal by clicking `Terminal` > `New Terminal` in the menu bar
+   - Or use the keyboard shortcut `Ctrl+Shift+\`` (backtick)
+
+3. **Navigate to the tutorial:**
+   ```bash
+   cd tutorial
+   ```
+
+4. **Start the tutorial:**
+   - Open `tutorial/README.md` in the VS Code editor to follow along
+   - You can also view `tutorial/solutions.md` for reference
 
 ## What's in here?
 

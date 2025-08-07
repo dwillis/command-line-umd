@@ -1,16 +1,16 @@
 ---
-author: Geoff Hing
+author: Geoff Hing & Derek Willis
 ---
 
 # Introduction to the command line
 
-NICAR 2025
+Using GitHub Codespaces
 
-https://github.com/ghing/nicar-2025-command-line
+https://github.com/dwillis/command-line-umd
 
 In particular: `tutorial/README.md`
 
-Geoff Hing <ghing@themarshallproject.org>
+Derek Willis <dpwillis@umd.edu>
 
 ---
 
@@ -23,7 +23,7 @@ Geoff Hing <ghing@themarshallproject.org>
 
 ## Topics
 
-- Accessing the command-line on a Mac
+- Accessing the command-line with GitHub Codespaces
 - Getting unstuck
 - Navigating the filesystem
 - Creating and modifying files
@@ -52,26 +52,24 @@ Geoff Hing <ghing@themarshallproject.org>
 
 ---
 
-## Accessing the command-line on a Mac
+## Accessing the command-line with GitHub Codespaces
 
-Using Finder:
+To access the command line in GitHub Codespaces:
 
-- Open Finder.
-- `Applications` > `Utilities` > `Terminal`
-
-Using Spotlight:
-
-- Open Spotlight search (`<cmd>+<space>` or the 🔎 icon in the menu bar).
-- Start typing `terminal`.
-- Click entry in search results.
+- Open the GitHub repository in your web browser
+- Click the green `Code` button on the repository page
+- Select the `Codespaces` tab
+- Click `Create codespace on main`
+- Wait for the codespace to load
+- Open terminal: `Terminal` > `New Terminal` or `Ctrl+Shift+\``
 
 ---
 
 ## There's another layer
 
 - Program that interprets the command is called the *shell*.
-- We're using Z shell (Zsh), the default on Macs.
-- There are many others: `sh`, `bash`, `ksh`.
+- We're using Bash, the default in GitHub Codespaces.
+- There are many others: `sh`, `zsh`, `ksh`.
 - Concepts and syntax are similar but will vary slightly.
 
 ---
@@ -171,7 +169,6 @@ Commands:
 - `cd`
 - `pwd`
 - `ls`
-- `open`
 
 ---
 
@@ -208,11 +205,13 @@ The output shows the *absolute path*, i.e. all the way from `/`.
 
 ### Try it together
 
-Change directory to the folder containing all the fies for this session: 
+Change directory to the tutorial folder:
 
 ```bash
-cd ~/Desktop/hands_on_classes/20250306-thursday-introduction-to-the-command-line-macs/
+cd tutorial
 ```
+
+In GitHub Codespaces, you'll start in the project root directory.
 
 ---
 
@@ -244,13 +243,13 @@ cd tutorial
 
 ### Try it together
 
-Open the current directory (`.`) in Finder:
+Explore files in the VS Code file explorer (left sidebar) or use the terminal to browse:
 
 ```bash
-open .
+ls .
 ```
 
-You might want to double-click `README.md` and `solutions.md`.
+You can double-click `README.md` and `solutions.md` in the file explorer to open them.
 
 ---
 
@@ -867,7 +866,6 @@ Commands:
 - `in2csv`
 - `csvgrep`
 - `csvformat`
-- `pbcopy`
 
 ---
 
@@ -986,11 +984,13 @@ csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log
 
 ### Try it together
 
-Pipe the TSV output to `pbcopy` to copy it to the system clipboard, and paste into a spreadsheet program:
+Save the output to a file for sharing or downloading:
 
 ```bash
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T | pbcopy
+csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T > tucson_requests.tsv
 ```
+
+You can then download this file using VS Code's file explorer (right-click and select "Download").
 
 ---
 
