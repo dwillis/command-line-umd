@@ -63,15 +63,15 @@ The longest way to complete this task would be to type out these commands.
 
 ### Try it yourself
 
-What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+What was the type of the first incident in the UMPD Incidents CSV file on February 1, 2025?
 
 Use less to view the file:
 
 ```
-less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+less data/umpd/umpd_incidents.csv
 ```
 
-Then, type the `/` character to search and type `2/1` and `<return>` to jump to the first record where the `EventDate` is "2/1/2025". The `EventType` value is "Moving Violation".
+Then, type the `/` character to search and type `2025-02-01` and `<return>` to jump to the first record where the `date_occurred` is "2025-02-01". The `incident_type` value is Injured/Sick Person".
 
 ## Searching for files and their contents
 
