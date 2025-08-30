@@ -664,7 +664,7 @@ Remember, you can use `pwd` to check.
 Look at a file contents:
 
 ```bash
-cat data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+cat data/umpd/umpd_incidents.csv
 ```
 
 ---
@@ -676,7 +676,7 @@ cat data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 Look at only the first lines:
 
 ```bash
-head data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+head data/umpd/umpd_incidents.csv
 ```
 
 ---
@@ -688,7 +688,7 @@ head data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 Specify the number of lines to see:
 
 ```
-head -n 6 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+head -n 6 data/umpd/umpd_incidents.csv
 ```
 
 ---
@@ -700,7 +700,7 @@ head -n 6 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 `tail` works similarly, showing the final lines of the file.
 
 ```
-tail -n 5 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+tail -n 5 data/umpd/umpd_incidents.csv
 ```
 
 ---
@@ -712,7 +712,7 @@ tail -n 5 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 `less` shows a file page by page:
 
 ```
-less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+less data/umpd/umpd_incidents.csv
 ```
 
 ---
@@ -739,7 +739,7 @@ Once inside `less`:
 To get the number of rows in a file, use `wc`:
 
 ```
-wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv 
+wc -l data/umpd/umpd_incidents.csv 
 ```
 
 ---
@@ -748,7 +748,7 @@ wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
 
 ### Try it yourself
 
-What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+What was the type of the first incident in the UMPD Incidents CSV file on February 1, 2025?
 
 ---
 
@@ -760,7 +760,7 @@ What was the type of the first incident in the Tucson Police Activity CSV file o
 Use less to view the file:
 
 ```
-less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+less data/umpd/umpd_incidents.csv
 ```
 
 Then, type the `/` character to search and type `2/1` and `<return>`.
@@ -997,7 +997,7 @@ in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx > data/ice-foia-logs/FY202
 Use `csvgrep` to search for matching records in a way that is aware of columns:
 
 ```bash
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv
 ```
 
 ---
@@ -1021,7 +1021,7 @@ csvgrep -h
 Pipe the output of `csvgrep` to `csvformat` to convert CSV to TSV:
 
 ```
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv | csvformat -T
 ```
 
 ---
@@ -1033,7 +1033,7 @@ csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log
 Save the output to a file for sharing or downloading:
 
 ```bash
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T > tucson_requests.tsv
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv | csvformat -T > tucson_requests.tsv
 ```
 
 You can then download this file using VS Code's file explorer (right-click and select "Download").

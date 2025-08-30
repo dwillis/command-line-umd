@@ -33,6 +33,13 @@ Finally, some of the examples in the tutorial use [csvkit](https://github.com/wi
    - Once Codespaces loads, you'll see VS Code in your browser
    - Open a terminal by clicking `Terminal` > `New Terminal` in the menu bar
    - Or use the keyboard shortcut `Ctrl+Shift+\`` (backtick)
+   - Copy and paste this command into the Terminal:
+
+   ```bash
+   go install github.com/maaslalani/slides@latest
+   ```
+
+   It will take a minute to run. You won't have to do it again.
 
 4. **Navigate to the tutorial:**
    ```bash

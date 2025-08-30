@@ -374,31 +374,31 @@ We're going to use these commands to preview and get statistics about files.
 Let's look at the contents of a CSV file using the `cat` command. Run:
 
 ```
-cat data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+cat data/umpd/umpd_incidents.csv
 ```
 
 This shows all of the lines of the CSV file, but they scroll by really quickly. Let's look at a more managable chunk, the first lines of the file using the `head` command.
 
 ```
-head data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+head data/umpd/umpd_incidents.csv
 ```
 
 To see fewer lines, specify the number of lines with the `-n` option:
 
 ```
-head -n 6 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+head -n 6 data/umpd/umpd_incidents.csv
 ```
 
 The `tail` command works similarly, showing the final lines of the file.
 
 ```
-tail -n 5 data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+tail -n 5 data/umpd/umpd_incidents.csv
 ```
 
 To view the contents of the file, bit by bit, use the `less` command:
 
 ```
-less data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv
+less data/umpd/umpd_incidents.csv
 ```
 
 Once in the program, you can use `<space>` to view the contents forward one page at a time. `b` will move backwards in the file one page at a time. Using arrow keys will move forward and backward one line at a time.
@@ -410,14 +410,14 @@ Typing `q` will exit `less`.
 To get the number of rows in a file, use `wc`:
 
 ```
-wc -l data/tucson/Tucson_Policy_Activity_2025_-2838525216610825691.csv 
+wc -l data/umpd/umpd_incidents.csv 
 ```
 
 ### Try it yourself
 
-Use the commands you've learned to examine the Tucson Police Activity CSV file and answer these questions:
+Use the commands you've learned to examine the UMPD Incidents CSV file and answer these questions:
 
-1. What was the type of the first incident in the Tucson Police Activity CSV file on February 1, 2025?
+1. What was the type of the first incident in the UMPD Incidents CSV file on February 1, 2025?
 2. How many total rows are in this file? (Remember to account for the header row)
 3. Use `tail` to look at the last few entries - what was the most recent date in the file when this data was exported?
 
@@ -608,13 +608,13 @@ grep -i 'law' data/ice-foia-logs/*.csv | less
 
 Now we can page through the output of `grep` using the keystrokes we learned before. Remember, type `q` to quite out of `less`.
 
-So much of data journalism is just counting things. We can use a few things we've learned so far to get really quick signals about data, without needing something like a pivot table. Let's see how often "tucson" is mentioned in the FOIA logs by combining `grep` and `wc`:
+So much of data journalism is just counting things. We can use a few things we've learned so far to get really quick signals about data, without needing something like a pivot table. Let's see how often "maryland" is mentioned in the FOIA logs by combining `grep` and `wc`:
 
 ```
-grep -i 'tucson' data/ice-foia-logs/*.csv | wc -l
+grep -i 'maryland' data/ice-foia-logs/*.csv | wc -l
 ```
 
-From this, we can see that Tucson is mentioned two times.
+From this, we can see that Maryland is mentioned two times.
 
 We can also redirect the output of a command to a file. 
 
@@ -634,10 +634,10 @@ in2csv data/ice-foia-logs/FY2024_FOIA_AppealsLog.xlsx > data/ice-foia-logs/FY202
 
 So far, we've worked a bit with CSV files and searching them with `grep`, but `grep` doesn't have any concept of the columns of the data. That is, we can't limit our search to certain columns. Luckily, csvkit also includes a program called `csvgrep` that works like `grep` but thinks in terms of the data's structure.
 
-Let's modify a `grep` command we used earlier to search for Tucson only in the `Request Description` column:
+Let's modify a `grep` command we used earlier to search for Maryland only in the `Request Description` column:
 
 ```
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv
 ```
 
 Note that `csvgrep` only works on a single file at a time and also includes the header row in the output. The search is also case-sensitive, though there is a [way to specify case insensitve patterns](https://github.com/wireservice/csvkit/issues/248#issuecomment-32101897).
@@ -653,7 +653,7 @@ You may see from this output that many options have both a short version that is
 One thing I do all the time is share slices of data with others. Let's start by *piping* the output of `csvgrep` to `csvformat` to convert it to a tab-separated format:
 
 ```
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv | csvformat -T
 ```
 
 Note that I used the short version of the option that outputs tabs instead of commas, `-T`, but I could have also used `--out-tabs`.
@@ -663,14 +663,12 @@ What if I wanted to bring this into a spreadsheet program like Excel or Google S
 In GitHub Codespaces, you can save the output to a file and then download it, or copy the output directly from the terminal. Let's save it to a file:
 
 ```
-csvgrep -c 'Request Description' -m "Tucson" data/ice-foia-logs/2024-08_FOIA_Log.csv | csvformat -T > tucson_requests.tsv
+csvgrep -c 'Request Description' -m "Maryland" data/ice-foia-logs/2024-09_FOIA_Log.csv | csvformat -T > maryland_requests.tsv
 ```
 
 You can then download this file using VS Code's file explorer (right-click on the file and select "Download"), or copy its contents and paste into a spreadsheet.
 
 Note that this pipeline has multiple steps connected with `|`. We can connect the inputs and outputs of programs using `|` in pipelines that could be many steps. But each step might be a very simple command. This helps experimenting and testing with each part of the pipeline.
-
-### Try it yourself
 
 ### Try it yourself
 
