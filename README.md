@@ -51,6 +51,13 @@ Finally, some of the examples in the tutorial use [csvkit](https://github.com/wi
    - You can edit this file directly to record your answers as you work through the exercises
    - You can also view `tutorial/solutions.md` for reference
 
+6. **Tutorial reflection:**
+   At the end of this README, answer the following questions:
+   - How could command line skills improve your efficiency as a journalist?
+   - What types of stories or investigations would benefit most from these tools?
+   - What felt most challenging about learning these technical skills?
+   - How does this connect to your understanding of data journalism?
+
 ## What's in here?
 
 - `tutorial`: Instructions and data for the hands-on activity we'll walk through during the conference session. You should also be able to follow along on your own computer.
@@ -79,8 +86,8 @@ Agency: U.S. Census Bureau
 
 Link: [National Population Totals: 2020-2024](https://www.census.gov/data/tables/time-series/demo/popest/2020s-national-total.html#v2023)
 
-### Tucson Police Department Police Activity Open Data for 2025
+### UMPD Incident Logs
 
-Agency: Tucson Police Department
+Agency: UMPD
 
-Link: [Tucson Policy Activity 2025](https://gisdata.tucsonaz.gov/datasets/d0092810c2ea45ff938ae1c5b43c7b4a_0/explore)
+Link: [UMPD Incident Logs](https://umpd.umd.edu/statistics-reports/daily-crime-and-incident-logs)
