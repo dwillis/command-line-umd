@@ -1,4 +1,4 @@
-# Introduction to the command line
+# The greatest introduction to the command line
 
 This is a template repository for a hands-on session about using the command line with GitHub Codespaces. Create your own copy using the "Use this template" button above.
 
